@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="static/style.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          
+            background: linear-gradient(106.5deg, rgba(255, 215, 185, 0.91) 23%, rgba(223, 159, 247, 0.8) 93%);
+          }
+          
+          #noButton {
+            position: absolute;
+            margin-left: 150px;
+            transition: 0.5s;
+            margin-top: 30px;
+          }
+          
+          #yesButton {
+            position: absolute;
+            margin-right: 150px;
+            margin-top: 30px;
+          }
+          
+          .header_text {
+            font-family: "Nunito";
+            font-size: 50px;
+            font-weight: bold;
+          
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+          }
+          
+          .text {
+            font-family: "Nunito";
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 0px;
+          }
+          
+          .buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-left: 20px;
+          }
+          
+          .btn {
+            background-color: #017cff;
+            color: white;
+            font-weight: 600;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 3px 3px black;
+          }
+          
+          .btn:hover {
+            background-color: #ffffff;
+            color: #017cff;
+          }
+          
+          .gif_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          p {
+            color: white;
+            margin-left: 50%;
+          }
+          p a {
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: 600;
+            opacity: 0.25;
+          }
+          #thankYouCard {
+            display: none;
+            /* Add styling for the thank-you card */
+          }
+          .thankYouText {
+            color: white;
+            font-size: 100px;
+            font-family: 'Comic Sans MS'; /* Use your preferred font-family */
+            animation: fadeIn 2s ease-in-out;
+          }
+          #thankYouContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" style="text-align:center">
+    <div>
+    <audio src="{% static 'sorrysong.mp3' %}" > </audio> <!-- Replace "your-audio-file.mp3" with your actual audio file path -->
+    <h1 style="color:black"> I'm Choo Sorryyyy Buffaloooo🐃.</h1>
+    <h2 style="color:brown">I want to sincerely apologize for silly and thoughtless things I've done.<br> I have been a clueless idiot & unintentionally messed things up &#128533;</br></h2>
+    <h3>But please know, my intentions have always been pure, and my love for you is genuine. <br>I never meant to hurt you or disrespect you, and I cherish our bond more than anything else &#128571;</br></h3>
+    <h2>Ab Se Nhi Hoga Galti. Mujhe Maaf Kar Do Noodles. Annnd We will be Good Friends, Right?<h2>
+      </div>
+     
+      <div class="gif_container">
+        <img
+          src="https://i.postimg.cc/pdNqPxx1/milk-and-mocha-cute.gif"
+          alt="Cute animated illustration"
+        />
+      </div>
+      <div class="buttons">
+        <button class="btn" id="yesButton" onclick="nextPage()">Yes</button>
+        <button
+          class="btn"
+          id="noButton"
+          onmouseover="moveButton()"
+          onclick="moveButton()"
+        >
+          No
+        </button>
+
+        <script>
+  function nextPage() {
+    window.location.href = "yes";
+  }
+
+  function moveButton() {
+    var x =
+      Math.random() *
+      (window.innerWidth -
+        document.getElementById("noButton").offsetWidth);
+    var y =
+      Math.random() *
+      (window.innerHeight -
+        document.getElementById("noButton").offsetHeight);
+    document.getElementById("noButton").style.left = `${x}px`;
+    document.getElementById("noButton").style.top = `${y}px`;
+  }
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

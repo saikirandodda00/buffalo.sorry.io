@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+      @keyframes moveBackground {
+        from {
+            background-position: center;
+        }
+        to {
+            background-position: center;
+        }
+    }
+
+    body {
+        background-image: url('{% static "cats1.jpg" %}');
+        background-size: cover; 
+        background-repeat: repeat;
+        color: #ffffff;
+        text-align: center;
+        font-family: 'Comic Sans MS';
+        animation: moveBackground 20s linear infinite;
+        font-size:19px;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .teddy {
+        width: 220px;
+        height: 150px;
+        background-image: url('{% static "please.gif" %}');
+        animation: bounce 4s infinite;
+        margin-top: 80px;
+        margin-left: 300px;
+    }
+
+    /* New styles for buttons */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes heartbeat {
+      0%, 100% {
+          transform: scale(1);
+      }
+      50% {
+          transform: scale(1.1);
+      }
+  }
+
+    .button-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    .button {
+        margin: 0 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #ffffff;
+        font-size: 35px;
+        cursor: pointer;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        animation: bounce 5s infinite; /* Apply bounce animation to buttons */
+    }
+    .button-no {
+      position: relative;
+  }
+
+  .button-no:hover {
+      animation: moveAway 1s forwards, fadeOut 1s 2s forwards;
+  }
+  .button-yes {
+    animation: heartbeat 1s 4s infinite; /* Apply heartbeat animation to Yes button after 4 seconds */
+}
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+#thankYouCard {
+  display: none;
+  /* Add styling for the thank-you card */
+}
+.thankYouText {
+  color: white;
+  font-size: 100px;
+  font-family: 'Comic Sans MS'; /* Use your preferred font-family */
+  animation: fadeIn 2s ease-in-out;
+}
+#thankYouContainer {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+    </style>
+</head>
+<body>
+  <audio src="{% static 'sorrysong.mp3' %}" > </audio> <!-- Replace "your-audio-file.mp3" with your actual audio file path -->
+    <h1> I'm Choo Sorryyyy Buffaloooo🐃.</h1>
+    <h2 style="color:brown">I want to sincerely apologize for silly and thoughtless things I've done.<br> I have been a clueless idiot & unintentionally messed things up &#128533;</br></h2>
+    <h3>But please know, my intentions have always been pure, and my love for you is genuine. <br>I never meant to hurt you or disrespect you, and I cherish our bond more than anything else &#128571;</br></h3>
+    <h2>Ab Se Nhi Hoga Galti. Mujhe Maaf Kar Do Noodles. Annnd We will be Good Friends, Right?<h2>
+    <div class="teddy"></div>
+    <div class="button-container" style="margin-top:-100px";>
+      <button id="yesButton" class="button" onclick="showConfettiAndCard()">Yes</button>
+      <button class="button button-no" onmousemove="trackMouse(event, this)" onmouseover="moveAway(event, this)">No</button>
+    </div>
+<div id="confetti-container"></div>
+<div id="overlay">
+  <div id="thankYouContainer">
+    <h1 class="thankYouText" style="color:pink;">Thank You Noodles!</h1>
+  </div>
+</div>
+
+   <script>
+  let isHovered = false;
+
+  function trackMouse(event, element) {
+    const rect = element.getBoundingClientRect();
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    isHovered = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+  }
+
+  function moveAway(event, element) {
+    if (isHovered) return;
+
+    const rect = element.getBoundingClientRect();
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    const moveX = mouseX - rect.width;
+    const moveY = mouseY - rect.height;
+
+    element.style.transition = "transform 2s ease-in-out, opacity 1s ease-in-out";
+    element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    element.style.opacity = 0;
+
+    setTimeout(() => {
+      element.style.display = "none";
+      startHeartbeat();
+    }, 4000); /* Disappear after 4 seconds */
+  }
+
+  function startHeartbeat() {
+    const yesButton = document.getElementById('yesButton');
+    yesButton.style.animation = 'heartbeat 0.5s infinite'; // Change the duration according to your preference
+    yesButton.style.transform = 'scale(1.2)'; // Optional: Start with a larger size
+    showConfettiAndCard();
+  }
+
+  function showConfettiAndCard() {
+    // Create and configure the confetti effect
+    particlesJS('confetti-container', {
+      // ... (your existing confetti configuration)
+    });
+  
+    // Display the overlay
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+  
+    // Display the animated "Thank You Noodles" text
+    const thankYouContainer = document.getElementById('thankYouContainer');
+    const thankYouText = document.getElementById('thankYouText');
+    thankYouContainer.style.display = 'flex';
+  
+    // Optional: You can add further animations or effects to the thank-you text
+  }
+  
+  
+  
+</script>
+
+    
+    
+</body>
+</html>
